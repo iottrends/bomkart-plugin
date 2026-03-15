@@ -1,0 +1,31 @@
+{
+    "$schema": "https://go.kicad.org/pcm/schemas/v1",
+    "name": "BOMKart",
+    "description": "Order BOM components from local Indian distributors directly from KiCad. Real-time pricing, Uber-style distributor confirmation, next-day delivery in Delhi-NCR.",
+    "description_full": "BOMKart integrates with your KiCad PCB design workflow to let you order components from local Indian electronics distributors.\n\nFeatures:\n- One-click BOM extraction from your PCB design\n- Real-time pricing and availability from 10+ Delhi-NCR distributors\n- MPN, LCSC, Mouser, DigiKey part number cross-referencing\n- Smart value matching (100nF = 0.1uF = 100n)\n- Export BOM to CSV\n- Next-day delivery in Delhi-NCR\n\nNo more hunting across markets or waiting weeks for international shipments.",
+    "identifier": "in.bomkart.kicad-plugin",
+    "type": "plugin",
+    "author": {
+        "name": "Hallycon Ventures",
+        "contact": {
+            "email": "support@bomkart.in",
+            "web": "https://bomkart.in"
+        }
+    },
+    "license": "MIT",
+    "resources": {
+        "homepage": "https://bomkart.in",
+        "issues": "https://github.com/hallycon/bomkart-kicad/issues",
+        "repository": "https://github.com/hallycon/bomkart-kicad"
+    },
+    "versions": [
+        {
+            "version": "0.1.0",
+            "status": "development",
+            "kicad_version": "10.0",
+            "download_url": "",
+            "download_size": 0,
+            "install_size": 0
+        }
+    ]
+}
