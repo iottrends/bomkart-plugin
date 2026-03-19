@@ -623,12 +623,14 @@ class BOMKartMainDialog(wx.Dialog):
         for idx, comp in enumerate(components):
             row = self.search_list.InsertItem(idx, comp.get("mpn", "—"))
             self.search_list.SetItem(row, 1, comp.get("value", "—"))
-            self.search_list.SetItem(row, 2, comp.get("footprint", "—"))
+            self.search_list.SetItem(row, 2, comp.get("package", "—"))
             self.search_list.SetItem(row, 3, comp.get("manufacturer", "—"))
-            price = comp.get("unit_price", 0)
+            price = comp.get("unit_price")
             self.search_list.SetItem(row, 4, f"₹{price:.2f}" if price else "—")
-            self.search_list.SetItem(row, 5, str(comp.get("available_qty", "—")))
-            self.search_list.SetItem(row, 6, comp.get("distributor_name", "—"))
+            qty = comp.get("available_qty")
+            self.search_list.SetItem(row, 5, str(qty) if qty is not None else "—")
+            dist = comp.get("distributor_name") or "—"
+            self.search_list.SetItem(row, 6, dist)
             if idx % 2:
                 self.search_list.SetItemBackgroundColour(row, CLR_ALT_ROW)
 
