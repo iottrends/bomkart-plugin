@@ -14,6 +14,7 @@ DEFAULT_SETTINGS = {
     "api_url": "https://api.bomkart.lambdauav.com/v1",
     "api_key": "",
     "city": "Delhi-NCR",
+    "delivery_address": "",
     "delivery_pincode": "",
     "customer_name": "",
     "customer_phone": "",

@@ -4,7 +4,15 @@
 
 No more switching tabs, copy-pasting part numbers, or waiting weeks for international shipments. BOMKart reads your PCB's BOM, checks real-time availability from distributors in Delhi-NCR, shows you pricing from both local stock and LCSC, and lets you place an order — all without leaving KiCad.
 
-![BOMKart Plugin Screenshot](bomkart.png)
+## Screenshots
+
+### BOM Tab — Dual Pricing (₹ BK + ₹ LCSC)
+![BOMKart BOM Pricing](screenshots/bom-pricing.png)
+
+> 53 unique parts from a real PCB — BK catalog numbers assigned, LCSC pricing fetched, green rows = in stock, total calculated in seconds.
+
+### Settings Tab — API Connected
+![BOMKart Settings](screenshots/settings-connected.png)
 
 ---
 

@@ -292,6 +292,10 @@ class BOMKartMainDialog(wx.Dialog):
         self.txt_cust_email = wx.TextCtrl(parent, value=self.settings.get("customer_email", ""))
         sizer.Add(self.txt_cust_email, 1, wx.EXPAND)
 
+        sizer.Add(wx.StaticText(parent, label="Delivery Address:"), 0, wx.ALIGN_CENTER_VERTICAL)
+        self.txt_address = wx.TextCtrl(parent, value=self.settings.get("delivery_address", ""), style=wx.TE_MULTILINE, size=(-1, 50))
+        sizer.Add(self.txt_address, 1, wx.EXPAND)
+
         sizer.Add(wx.StaticText(parent, label="Delivery Pincode:"), 0, wx.ALIGN_CENTER_VERTICAL)
         self.txt_pincode = wx.TextCtrl(parent, value=self.settings.get("delivery_pincode", ""))
         sizer.Add(self.txt_pincode, 1, wx.EXPAND)
@@ -783,6 +787,7 @@ class BOMKartMainDialog(wx.Dialog):
         self.settings["customer_name"] = self.txt_cust_name.GetValue().strip()
         self.settings["customer_phone"] = self.txt_cust_phone.GetValue().strip()
         self.settings["customer_email"] = self.txt_cust_email.GetValue().strip()
+        self.settings["delivery_address"] = self.txt_address.GetValue().strip()
         self.settings["delivery_pincode"] = self.txt_pincode.GetValue().strip()
         self.settings.save()
         self._api = None  # Force re-init
@@ -859,6 +864,7 @@ class BOMKartMainDialog(wx.Dialog):
                 "customer_name": self.settings.get("customer_name", ""),
                 "customer_phone": self.settings.get("customer_phone", ""),
                 "customer_email": self.settings.get("customer_email", ""),
+                "delivery_address": self.settings.get("delivery_address", ""),
                 "delivery_pincode": self.settings.get("delivery_pincode", ""),
                 "items": [
                     i.to_api_dict() for i in self.bom_items
