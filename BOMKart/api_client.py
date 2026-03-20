@@ -24,9 +24,10 @@ class BOMKartAPIError(Exception):
 class BOMKartAPI:
     """REST client for BOMKart backend."""
 
-    def __init__(self, base_url: str = "http://localhost:8000/v1", api_key: str = ""):
+    def __init__(self, base_url: str = "http://localhost:8000/v1", api_key: str = "", install_id: str = ""):
         self.base_url = base_url.rstrip("/")
         self.api_key = api_key
+        self.install_id = install_id
         self.timeout = 300  # BOM checks hit external LCSC API per item; large BOMs need time
 
     def _request(self, method: str, path: str, data: Any = None) -> dict:
@@ -39,6 +40,8 @@ class BOMKartAPI:
         }
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
+        if self.install_id:
+            headers["X-Install-ID"] = self.install_id
 
         body = json.dumps(data).encode("utf-8") if data is not None else None
         req = urllib.request.Request(url, data=body, headers=headers, method=method)
@@ -111,6 +114,12 @@ class BOMKartAPI:
     def get_order_status(self, order_id: str) -> dict:
         """GET /orders/{order_id}"""
         return self._request("GET", f"/orders/{order_id}")
+
+    # ── Analytics ──────────────────────────────────────
+
+    def register_install(self, payload: dict) -> dict:
+        """POST /analytics/register — called on settings save."""
+        return self._request("POST", "/analytics/register", data=payload)
 
     # ── Health ─────────────────────────────────────────
 

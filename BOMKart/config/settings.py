@@ -7,12 +7,14 @@ Stores API URL, API key, delivery preferences, etc.
 
 import json
 import os
+import uuid
 from typing import Any
 
 
 DEFAULT_SETTINGS = {
     "api_url": "https://api.bomkart.lambdauav.com/v1",
     "api_key": "",
+    "install_id": "",          # UUID generated once on first install
     "city": "Delhi-NCR",
     "delivery_address": "",
     "delivery_pincode": "",
@@ -59,6 +61,10 @@ class Settings:
                 self._data.update(saved)
             except (json.JSONDecodeError, IOError):
                 pass
+        # Generate install_id once if not present
+        if not self._data.get("install_id"):
+            self._data["install_id"] = str(uuid.uuid4())
+            self.save()
 
     def save(self):
         """Write current settings to disk."""

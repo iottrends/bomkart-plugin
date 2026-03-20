@@ -541,7 +541,8 @@ class BOMKartMainDialog(wx.Dialog):
             from ..api_client import BOMKartAPI
             url = self.txt_api_url.GetValue().strip() if hasattr(self, 'txt_api_url') else self.settings.api_url
             key = self.txt_api_key.GetValue().strip() if hasattr(self, 'txt_api_key') else self.settings.api_key
-            self._api = BOMKartAPI(base_url=url, api_key=key)
+            install_id = self.settings.get("install_id", "")
+            self._api = BOMKartAPI(base_url=url, api_key=key, install_id=install_id)
         return self._api
 
     def _on_multiplier_change(self, event):
@@ -794,6 +795,24 @@ class BOMKartMainDialog(wx.Dialog):
         self.settings.save()
         self._api = None  # Force re-init
         self._set_status("✅ Settings saved.", CLR_SUCCESS)
+        # Register install with backend (fire-and-forget)
+        import threading
+        threading.Thread(target=self._register_install, daemon=True).start()
+
+    def _register_install(self):
+        try:
+            api = self._get_api()
+            api.register_install({
+                "install_id": self.settings.get("install_id", ""),
+                "name": self.settings.get("customer_name", ""),
+                "phone": self.settings.get("customer_phone", ""),
+                "email": self.settings.get("customer_email", ""),
+                "delivery_address": self.settings.get("delivery_address", ""),
+                "delivery_pincode": self.settings.get("delivery_pincode", ""),
+                "city": self.settings.get("city", ""),
+            })
+        except Exception:
+            pass
 
     def _on_test_connection(self, event):
         self.lbl_conn_status.SetLabel("Testing...")
